@@ -1,0 +1,42 @@
+﻿@inject NavigationManager _navigationManager
+
+@if(Server != null)
+{
+
+
+	<li @key="Server.ServerId">
+		@Server.Name in @Server.City is
+		<span style="color: @(Server.IsOnline? "green" : "red")">@(Server.IsOnline ? "online" : "offline")</span>
+		&nbsp;
+		<a href="/servers/edit/@Server.ServerId" class="btn btn-link" >Edit</a>
+		&nbsp;
+
+		<EditForm Model="Server"
+				  FormName="@($"form-server-{Server.ServerId}")"
+				  OnValidSubmit="@(() => { DeleteServer(Server.ServerId);})">
+
+			<button type="submit" class="btn btn-danger">Delete</button>
+		</EditForm>
+	</li>
+}
+
+
+
+@code {
+	[Parameter]
+	public Server? Server { get; set; }
+	private bool editingServer = false;
+	//Implicit Razor Syntax starts with @
+	//Explicit Razor starts with @ and has ()
+
+
+
+	private void DeleteServer(int serverId)
+	{
+		if (serverId > 0)
+		{
+			ServersRepository.DeleteServer(serverId);
+			_navigationManager.NavigateTo("/servers", true);
+		}
+	}
+}

@@ -1,0 +1,56 @@
+﻿@page "/servers"
+
+@rendermode InteractiveServer
+
+@inject NavigationManager _navigationManager
+
+<h3>Servers</h3>
+<br/>
+<br/>
+
+<CityListComponent @ref="cityListComponent" SelectCityCallback="HandleCitySelection"></CityListComponent>
+
+
+<br />
+
+
+<br />
+
+<SearchServersComponent @ref="searchServersComponent" SearchServerCallBack="HandleSearchServer"></SearchServersComponent>
+
+
+<ServerListComponent CityName="@this.selectedCity" SearchFilter="@searchFilter" @rendermode="InteractiveServer"></ServerListComponent>
+
+
+
+<p>
+	<a href="/servers/add" class="btn btn-primary">Add Server</a>
+</p>
+
+
+
+
+@code {
+	private string selectedCity = "Toronto";
+
+	private string searchFilter = "";
+
+	private CityListComponent? cityListComponent;
+	private SearchServersComponent? searchServersComponent;
+
+	private void HandleCitySelection(string cityName)
+	{
+		// this.servers = ServersRepository.GetServersByCity(cityName);
+		selectedCity = cityName;
+		this.searchFilter = "";
+		searchServersComponent?.ClearFilter();
+	}
+
+	private void HandleSearchServer(string searchFilter)
+	{
+		// selectedCity = searchFilter ?? "Toronto";
+		this.searchFilter = searchFilter;
+
+		cityListComponent?.ClearSelection();
+	}
+}
