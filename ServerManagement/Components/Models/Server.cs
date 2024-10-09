@@ -7,7 +7,7 @@ namespace ServerManagement.Components.Models
 		public Server()
 		{
 			Random random = new Random();
-			int randomNumber = random.Next(0, 1);
+			int randomNumber = random.Next(0, 2);
 			IsOnline = randomNumber == 0 ? false : true;
 		}
 		public int ServerId { get; set; }

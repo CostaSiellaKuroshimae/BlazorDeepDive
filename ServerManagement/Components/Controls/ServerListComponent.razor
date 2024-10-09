@@ -1,16 +1,25 @@
 ﻿
 
+<table class="table table-striped">
+	<RepeaterComponent Items="servers">
+		<Header>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>City</th>
+					<th>Status</th>
+					<th>People Online</th>
+					<th></th>
+				<th></th>
 
-@if(this.servers != null && this.servers.Count > 0)
-{
-	<ul>
-
-		<Virtualize Items="this.servers" Context="server">
+				</tr>
+			</thead>
+		</Header>
+		<Row Context="server">
 			<ServerComponent Server="server"></ServerComponent>
-		</Virtualize>
-
-	</ul>
-}
+		</Row>
+	</RepeaterComponent>
+</table>
 
 
 @code {
