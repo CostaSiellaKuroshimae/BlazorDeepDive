@@ -1,16 +1,18 @@
 ﻿@page "/servers"
-@page "/servers/back_from/{city_name}"
+@page "/servers/back_from/{CityName}"
+@using StateStore
 
 
 @rendermode InteractiveServer
 
 @inject NavigationManager _navigationManager
+@inject TorontoOnlineServersStore _torontoOnlineServersStore
 
 <h3>Servers</h3>
 <br/>
 <br/>
 
-<CityListComponent @ref="cityListComponent" SelectCityCallback="HandleCitySelection"></CityListComponent>
+<CityListComponent @ref="cityListComponent" SelectCityCallback="HandleCitySelection" selectedCity="@this.selectedCity"></CityListComponent>
 
 
 <br />
@@ -29,14 +31,14 @@
 
 
 <p>
-	<a href="/servers/add" class="btn btn-primary">Add Server</a>
+	<a href="/servername" class="btn btn-primary">Add Server</a>
 </p>
 
 
 
 
 @code {
-	// [Parameter]
+	[Parameter]
 	public string? CityName { get; set; }
 	private string selectedCity = "Toronto";
 
@@ -47,7 +49,6 @@
 
 	private void HandleCitySelection(string cityName)
 	{
-		// this.servers = ServersRepository.GetServersByCity(cityName);
 		selectedCity = cityName;
 		this.searchFilter = "";
 		searchServersComponent?.ClearFilter();
@@ -70,7 +71,13 @@
 				selectedCity = CityName;
 				StateHasChanged();
 			}
+
+			var serversToronto = ServersRepository.GetServersByCity("Toronto");
+			if(serversToronto is not null)
+			{
+				_torontoOnlineServersStore.SetNumberServersOnline(serversToronto.Count(x => x.IsOnline));
+			}
 		}
-		base.OnAfterRender(firstRender);
+		// base.OnAfterRender(firstRender);
 	}
 }
