@@ -3,7 +3,7 @@ using ServerManagement.Data;
 
 namespace ServerManagement.Components.Models
 {
-	public class ServersEFCoreRepository
+	public class ServersEFCoreRepository : IServersEFCoreRepository
 	{
 		private readonly IDbContextFactory<ServerManagementContext> _contextFactory;
 

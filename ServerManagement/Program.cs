@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ServerManagement.Components;
+using ServerManagement.Components.Models;
 using ServerManagement.Components.StateStore;
 using ServerManagement.Data;
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContextFactory<ServerManagementContext>(options =>
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 builder.Services.AddScoped<TorontoOnlineServersStore>();
+builder.Services.AddTransient<IServersEFCoreRepository, ServersEFCoreRepository>();
 
 
 var app = builder.Build();

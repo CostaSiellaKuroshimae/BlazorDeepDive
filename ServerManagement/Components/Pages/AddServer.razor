@@ -2,6 +2,8 @@
 
 @inject NavigationManager _navigationManager
 @rendermode InteractiveServer
+@inject IServersEFCoreRepository ServersEFCoreRepository
+
 
 <h3>Add Server</h3>
 <br />
@@ -59,7 +61,7 @@
 	{
 		if(server != null)
 		{
-			ServersRepository.AddServer(server);
+			ServersEFCoreRepository.AddServer(server);
 
 		}
 

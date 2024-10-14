@@ -1,12 +1,20 @@
 ﻿@page "/servers"
 @page "/servers/back_from/{CityName}"
+
 @using StateStore
+@using WebAssemblyDemo.Client.Models
+
+
+
+@inject IServersEFCoreRepository ServersEFCoreRepository
+@inject IServersRepository ServersApiRepository
+@inject NavigationManager _navigationManager
+@inject TorontoOnlineServersStore _torontoOnlineServersStore
 
 
 @rendermode InteractiveServer
 
-@inject NavigationManager _navigationManager
-@inject TorontoOnlineServersStore _torontoOnlineServersStore
+
 
 <h3>Servers</h3>
 <br/>
@@ -72,7 +80,7 @@
 				StateHasChanged();
 			}
 
-			var serversToronto = ServersRepository.GetServersByCity("Toronto");
+			var serversToronto = ServersEFCoreRepository.GetServersByCity("Toronto");
 			if(serversToronto is not null)
 			{
 				_torontoOnlineServersStore.SetNumberServersOnline(serversToronto.Count(x => x.IsOnline));

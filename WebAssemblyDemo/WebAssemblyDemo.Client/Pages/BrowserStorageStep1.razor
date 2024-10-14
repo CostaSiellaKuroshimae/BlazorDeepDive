@@ -1,25 +1,29 @@
 ﻿@page "/browser_wasm_1"
+
 @rendermode InteractiveWebAssembly
-@inject IJSRuntime _jsRuntime
-@inject NavigationManager _navigationManager
-@inject ContainerStorage _containerStorage
 
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
-<h3>BrowserStorageStep1</h3>
-<br />
-<br /><br />
-<input type="text" @bind-value="data" class="form-control" />
-<br />
-<br />
-<button class="btn btn-primary" @onclick="GoNext">Next</button>
+@inject ContainerStorage ContainerStorage
+
+<h3>Browser Storage Step 1</h3>
+<br/>
+<br/>
+
+<input type="text" class="form-control" @bind-value="data" />
+<br/>
+<br/>
+<button type="button" class="btn btn-primary" @onclick="GoNext">Next</button>
 
 @code {
-	private string data = "";
+    private string data = "";
 
-	private async Task GoNext()
-	{
-		// await _jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "demo-data", data);
-		_containerStorage.SetMessage(data);
-		_navigationManager.NavigateTo("browser_wasm_2");
-	}
+    private async Task GoNext()
+    {
+        //await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "demo-data", data);
+        ContainerStorage.SetMessage(data);
+        NavigationManager.NavigateTo("/browser_wasm_2");
+    }
+
 }

@@ -1,6 +1,7 @@
 ﻿@using StateStore
 @inject NavigationManager _navigationManager
 @inject TorontoOnlineServersStore _torontoOnlineServersStore
+@inject IServersEFCoreRepository ServersEFCoreRepository
 
 @if(Server != null)
 {
@@ -81,7 +82,7 @@
 	{
 		if (serverId > 0)
 		{
-			ServersRepository.DeleteServer(serverId);
+			ServersEFCoreRepository.DeleteServer(serverId);
 			_navigationManager.NavigateTo("/servers", true);
 		}
 	}

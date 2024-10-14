@@ -1,5 +1,7 @@
 ﻿@page "/serverstatus"
 @using ServerManagement.StateStore
+@inject IServersEFCoreRepository ServersEFCoreRepository
+
 
 @rendermode InteractiveServer
 @inherits ComponentBase
@@ -62,7 +64,7 @@
 				City = this.CityName,
 				IsOnline = this.IsOnline
 			};
-			ServersRepository.AddServer(server);
+		ServersEFCoreRepository.AddServer(server);
 			_navigationManager.NavigateTo($"/servers/back_from/{CityName}");
 	}
 
